@@ -493,7 +493,7 @@
 
 // src/Modals/signup-modal.tsx
 import React, { useState, useEffect } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from '@heroui/react';
+import { Modal, ModalContent, ModalHeader, ModalBody, Button, Input } from '@heroui/react';
 import { useAuth } from '../context/AuthContext';
 
 interface SignupModalProps {

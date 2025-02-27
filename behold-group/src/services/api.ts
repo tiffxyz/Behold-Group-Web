@@ -311,11 +311,67 @@
 
 // api.ts - Update your API base URL to use port 8000
 
-class Api {
-    private baseUrl = 'http://127.0.0.1:8000/api'; // Updated to your correct backend URL
+// class Api {
+//     private baseUrl = 'http://127.0.0.1:8000/api'; // Updated to your correct backend URL
 
-    // If you're using Vite's proxy in development, use a relative URL instead:
-    // private baseUrl = '/api';
+//     // If you're using Vite's proxy in development, use a relative URL instead:
+//     // private baseUrl = '/api';
+
+//     async post(endpoint: string, data: any) {
+//       try {
+//         const url = `${this.baseUrl}${endpoint}`;
+//         const response = await fetch(url, {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           credentials: 'include',  // Critical for sending and receiving cookies
+//           body: JSON.stringify(data),
+//         });
+
+//         if (!response.ok) {
+//           const errorData = await response.json();
+//           throw new Error(errorData.errors?.message || 'Request failed');
+//         }
+
+//         return response.json();
+//       } catch (error) {
+//         console.error('API request failed:', error);
+//         throw error;
+//       }
+//     }
+
+//     // Add similar methods for get, put, delete as needed
+
+//     // Example:
+//     async get(endpoint: string) {
+//       try {
+//         const url = `${this.baseUrl}${endpoint}`;
+//         const response = await fetch(url, {
+//           method: 'GET',
+//           credentials: 'include',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//         });
+
+//         if (!response.ok) {
+//           const errorData = await response.json();
+//           throw new Error(errorData.errors?.message || 'Request failed');
+//         }
+
+//         return response.json();
+//       } catch (error) {
+//         console.error('API request failed:', error);
+//         throw error;
+//       }
+//     }
+//   }
+
+//   export default new Api();
+
+class Api {
+    private baseUrl = 'http://127.0.0.1:8000/api';
 
     async post(endpoint: string, data: any) {
       try {
@@ -325,25 +381,28 @@ class Api {
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include',  // Critical for sending and receiving cookies
+          credentials: 'include',
           body: JSON.stringify(data),
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.errors?.message || 'Request failed');
+          // Try to get error details, but handle case where response isn't JSON
+          try {
+            const errorData = await response.json();
+            throw new Error(JSON.stringify(errorData));
+          } catch (jsonError) {
+            // If parsing JSON fails, throw with status text
+            throw new Error(`Request failed: ${response.status} ${response.statusText}`);
+          }
         }
 
-        return response.json();
+        return await response.json();
       } catch (error) {
-        console.error('API request failed:', error);
+        console.error('API post request failed:', error);
         throw error;
       }
     }
 
-    // Add similar methods for get, put, delete as needed
-
-    // Example:
     async get(endpoint: string) {
       try {
         const url = `${this.baseUrl}${endpoint}`;
@@ -356,13 +415,19 @@ class Api {
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.errors?.message || 'Request failed');
+          // Try to get error details, but handle case where response isn't JSON
+          try {
+            const errorData = await response.json();
+            throw new Error(JSON.stringify(errorData));
+          } catch (jsonError) {
+            // If parsing JSON fails, throw with status text
+            throw new Error(`Request failed: ${response.status} ${response.statusText}`);
+          }
         }
 
-        return response.json();
+        return await response.json();
       } catch (error) {
-        console.error('API request failed:', error);
+        console.error('API get request failed:', error);
         throw error;
       }
     }

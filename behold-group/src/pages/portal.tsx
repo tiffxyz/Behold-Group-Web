@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from '@heroui/react';
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { Button } from '@heroui/react';
-import UserMenu from '@/components/Navigation/userMenu';
+// import UserMenu from '@/components/Navigation/userMenu';
 
 interface DashboardTileProps {
   tileTitle: string;
@@ -125,7 +125,8 @@ const PartnerPortal: React.FC = () => {
 
   return (
     <DefaultLayout >
-<div><UserMenu />
+<div>
+  {/* <UserMenu /> */}
 </div>
         {/* Outer Card Container */}
         <Card className="w-full max-w-7xl bg-gradient-to-r from-primary/15 to-secondary/15 p-6">

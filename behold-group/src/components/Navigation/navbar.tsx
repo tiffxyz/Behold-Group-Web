@@ -179,7 +179,7 @@ import { link as linkStyles } from "@heroui/theme";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon } from "@/components/icons";
-import UserMenu from "./userMenu";
+// import UserMenu from "./userMenu";
 import NavDropdown from "./dropdown-nav";
 
 import { useDisclosure} from "@heroui/react";
@@ -267,7 +267,7 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem>
-          <UserMenu />
+          {/* <UserMenu /> */}
         </NavbarItem>
       </NavbarContent>
     </HeroUINavbar>

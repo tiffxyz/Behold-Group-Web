@@ -215,6 +215,7 @@ interface AppContextType {
   isLoading: boolean;
   error: string | null;
   login: (credentials: { email: string; password: string }) => Promise<void>;
+  signup: (userData: { username: string; email: string; password: string }) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
 }
@@ -255,39 +256,90 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  const login = async (credentials: { email: string; password: string }) => {
-    setIsLoading(true);
-    setError(null);
+// In your AppContext.tsx login function
+const login = async (credentials: { email: string; password: string }) => {
+  setIsLoading(true);
+  setError(null);
 
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(credentials)
-      });
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include', // This is crucial for cookie-based auth
+      body: JSON.stringify(credentials)
+    });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.errors?.message || 'Login failed');
-      }
-
-      const userData = await response.json();
-      setUser(userData);
-      setIsAuthenticated(true);
-
-      // Navigate to dashboard after login
-      navigate('/dashboard'); // Or whatever your portal route is
-    } catch (error) {
-      console.error('Login error:', error);
-      setError(error instanceof Error ? error.message : 'Login failed');
-      throw error;
-    } finally {
-      setIsLoading(false);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.errors?.message || 'Login failed');
     }
-  };
+
+    const userData = await response.json();
+
+    // Update auth state first
+    setUser(userData);
+    setIsAuthenticated(true);
+
+    // Then navigate with a small delay to ensure state is updated
+    setTimeout(() => {
+      navigate('/portal');
+    }, 100);
+  } catch (error) {
+    console.error('Login error:', error);
+    setError(error instanceof Error ? error.message : 'Login failed');
+    throw error;
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+//   const login = async (credentials: { email: string; password: string }) => {
+//     setIsLoading(true);
+//     setError(null);
+
+//     try {
+//       console.log('Making login request');
+//       const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         credentials: 'include',
+//         body: JSON.stringify(credentials)
+//       });
+
+//       console.log('Login response status:', response.status);
+
+
+//       if (!response.ok) {
+//         const errorData = await response.json();
+//         throw new Error(errorData.errors?.message || 'Login failed');
+//       }
+
+//       const userData = await response.json();
+//       console.log('User data received:', userData);
+//       setUser(userData);
+//       setIsAuthenticated(true);
+
+//       // Navigate to dashboard after login
+//       navigate('/portal');
+
+//       // In AppContext.tsx login function
+// console.log('About to navigate to:', '/portal');
+// navigate('/portal');
+// console.log('Navigation called');
+
+
+//     } catch (error) {
+//       console.error('Login error:', error);
+//       setError(error instanceof Error ? error.message : 'Login failed');
+//       throw error;
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
 
   const logout = async () => {
     try {
@@ -304,6 +356,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const signup = async (data: { username: string; email: string; password: string }) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.errors?.message || 'Signup failed');
+      }
+
+      const userData = await response.json();
+      setUser(userData);
+      setIsAuthenticated(true);
+      navigate('/awaiting-approval');
+
+    } catch (error) {
+      console.error('Signup error:', error);
+      setError(error instanceof Error ? error.message : 'Signup failed');
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -313,7 +398,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         error,
         login,
         logout,
-        checkAuth
+        signup,
+        checkAuth,
       }}
     >
       {children}

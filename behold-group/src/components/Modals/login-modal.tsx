@@ -821,7 +821,7 @@
 
 // src/Modals/login-modal.tsx
 import React, { useState, useEffect } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, Link } from '@heroui/react';
+import { Modal, ModalContent, ModalHeader, ModalBody, Button, Input, Link } from '@heroui/react';
 import { useAuth } from '../context/AuthContext';
 import { useDisclosure } from '@heroui/react';
 import SignupModal from './signup-modal';

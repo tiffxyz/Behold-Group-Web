@@ -148,7 +148,7 @@ from .config import Config
 csrf = CSRFProtect()
 
 # Create Flask app
-app = Flask(__name__, static_folder='../behold-group/dist', static_url_path='/')
+app = Flask(__name__, static_folder='../behold-group', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
@@ -178,8 +178,8 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 
 # Configure CORS
 CORS(app, resources={r"/api/*": {
-    "origins": "http://localhost:5173",  # Your frontend origin
-    "supports_credentials": True         # Important for sessions/cookies
+    "origins": ["http://localhost:5173"],  # Your frontend origin as a list
+    "supports_credentials": True           # Important for sessions/cookies
 }})
 
 # Since we are deploying with Docker and Flask,
