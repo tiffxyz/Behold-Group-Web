@@ -6,6 +6,3 @@ export interface FormErrors {
     subject?: string;
     message?: string;
   }
-//   export interface FormErrors<T> {
-//     [key: string]: T;
-//   }

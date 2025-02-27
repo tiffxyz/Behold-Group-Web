@@ -1,8 +1,8 @@
 
 
 import React from 'react';
-import { Card, CardBody, CardHeader, Button, Image } from "@heroui/react";
-import { title, subtitle } from "@/components/primitives";
+import { Card, CardBody, CardHeader} from "@heroui/react";
+import { title} from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 
 

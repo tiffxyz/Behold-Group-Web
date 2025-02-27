@@ -1,10 +1,7 @@
-//
 import DefaultLayout from "@/layouts/default";
 import Hero from "@/components/Hero/hero";
-// import About from "@/components/Hero/about-hero";
 import Contact from "@/components/Hero/contact-hero";
 import Services from "@/components/Hero/services-hero";
-// import Partner from "@/components/Hero/partner-hero";
 import Hero2 from "@/components/Hero/hero copy";
 
 export default function IndexPage() {

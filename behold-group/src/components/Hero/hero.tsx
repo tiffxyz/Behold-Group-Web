@@ -1,45 +1,9 @@
-// import { title, subtitle } from "@/components/primitives";
-// import { Button, Image } from "@heroui/react";
-// import { Link } from "react-router-dom";
-// const Hero = () => {
-//   return (
-
-//     <div className="grid grid-cols-1 md:grid-cols-2">
-//       <Image className="h-screen"
-//       src='https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2019/10/business_with_esa/21093947-3-eng-GB/Business_with_ESA_pillars.jpg'
-//       />
-
-//     <div className="inline-block max-w-lg text-center justify-center h-screen">
-//       <span className={title({ color: "yellow" })}>The Behold Group</span>
-//       <div className={subtitle({ class: "mt-4" })}>
-//         Transform Your Business Legacy
-//       </div>
-//       <Button
-//             as={Link}
-//             color="primary"
-//             href="/contact"
-//             variant="flat"
-//             className="text-sm"
-//             >
-//             Get Started
-//           </Button>
-//     </div>
-//             </div>
-//   );
-// };
-
-// export default Hero;
-
 import { title, subtitle } from "@/components/primitives";
 import { Button, Image } from "@heroui/react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-
-
-
-
 <section className="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply w-screen">
     <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">BEHOLD GROUP</h1>

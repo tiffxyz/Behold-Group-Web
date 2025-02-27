@@ -1,11 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-
-// import DocsPage from "@/pages/docs";
 import { LoginForm } from "./components/Auth/Forms/LoginForm";
 import { SignupForm } from "./components/Auth/Forms/SignupForm";
 import IndexPage from "@/pages/index";
 import ServicesPage from "@/pages/services";
-// import PricingPage from "@/pages/pricing";
 import BlogPage from "@/pages/blog";
 import ResourcesPage from "@/pages/resources";
 import AboutPage from "@/pages/about";
@@ -19,10 +16,6 @@ import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { AppProvider } from './components/context/AppContext';
 import { AwaitingApprovalPage } from "./pages/awaitingApproval";
 
-// import { LoginForm } from "./components/Auth/Forms";
-// import { SignupForm } from "./components/Auth/Forms";
-
-
 function App() {
   return (
     <AppProvider>
@@ -32,7 +25,6 @@ function App() {
       <Route element={<SignupForm />} path="/signup" />
       <Route element={<AwaitingApprovalPage />} path="/awaiting-approval" />
       <Route element={<ResourcesPage />} path="/resources" />
-      {/* <Route element={<PricingPage />} path="/pricing" /> */}
       <Route element={<BlogPage />} path="/blog" />
       <Route element={<ContactPage />} path="/contact" />
       <Route element={<AboutPage />} path="/about" />
