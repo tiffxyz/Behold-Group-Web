@@ -184,11 +184,15 @@ import NavDropdown from "./dropdown-nav";
 
 import { useDisclosure} from "@heroui/react";
 import LoginModal from "../Modals/login-modal";
+import { useApp } from "@/components/context/AppContext";
 
 
 
 
 export const Navbar = () => {
+  const { isAuthenticated } = useApp();
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const searchInput = (
     <Input
       aria-label="Search"
@@ -204,8 +208,8 @@ export const Navbar = () => {
       type="search"
     />
   );
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  // bg-[#022E40]
+  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // // bg-[#022E40]
   return (
     <HeroUINavbar maxWidth="xl" position="sticky" className="">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -248,10 +252,30 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">
           {searchInput}
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">
+        {/* <NavbarItem className="hidden lg:flex">
           <Link color="primary" onPress={onOpen}>Partner Portal</Link>
           <LoginModal isOpen={isOpen} onOpenChange={onOpenChange} />
-        </NavbarItem>
+        </NavbarItem> */}
+
+<NavbarItem className="hidden lg:flex">
+  <Link
+    color="primary"
+    onPress={() => {
+      // If authenticated, go directly to portal
+      if (isAuthenticated) {
+        window.location.href = '/portal';
+      } else {
+        // Otherwise open login modal
+        onOpen();
+      }
+    }}
+  >
+    Partner Portal
+  </Link>
+  <LoginModal isOpen={isOpen} onOpenChange={onOpenChange} />
+</NavbarItem>
+
+
         {/* <NavbarItem>
           <Button
             as={Link}
