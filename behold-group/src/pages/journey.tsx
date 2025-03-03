@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Card, CardBody, CardHeader} from "@heroui/react";
 import { title} from "@/components/primitives";

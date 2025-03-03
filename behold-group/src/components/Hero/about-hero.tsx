@@ -1,7 +1,5 @@
 import { title, subtitle } from "@/components/primitives";
 import { Card, CardBody, CardHeader, CardFooter, Image} from "@heroui/react";
-// import FoundersSection from "../Sections/foundersSection";
-// import TeamSection from "../Sections/teamSection";
 import { Button } from "@heroui/react";
 import { Link } from "react-router-dom";
 
@@ -47,62 +45,6 @@ export const About = () => {
 
           </div>
 
-
-{/* Our Founders */}
-
-{/* <FoundersSection/> */}
-
-{/* Our Team */}
-
-{/* <TeamSection/> */}
-
-      {/* </div> */}
-
-{/*
-
-
-        <div className="mt-8">
-            <Card className="p-4">
-              <CardHeader>
-                <h2 className={title({ size: "sm", color: "yellow" })}>Our Approach</h2>
-              </CardHeader>
-              <CardBody>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Understand</h3>
-                    <p className="text-default-600">
-                      We start by deeply understanding your business, goals, and challenges.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Transform</h3>
-                    <p className="text-default-600">
-                      Implement tailored digital solutions that drive growth and efficiency.
-                    </p>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Succeed</h3>
-                    <p className="text-default-600">
-                      Guide you toward sustainable success or a profitable exit strategy.
-                    </p>
-                  </div>
-                </div>
-              </CardBody>
-              <CardFooter className="">
-                    <div>
-                    <Button
-            as={Link}
-            color="primary"
-            href="/about"
-            variant="flat"
-            className="text-sm"
-          >
-            Learn more about us
-          </Button>
-                    </div>
-                  </CardFooter>
-            </Card>
-          </div> */}
 <br />
           <div className="flex justify-center">
                     <Button
