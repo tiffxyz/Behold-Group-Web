@@ -96,6 +96,8 @@ import ResourcesPage from "@/pages/resources";
 import AboutPage from "@/pages/about";
 import ContactPage from "@/pages/contact";
 import PartnershipsPage from "@/pages/partnerships";
+import Journey from './pages/journey';
+import Apply from './pages/application';
 
 import { LoginForm, SignupForm } from "@/components/Auth/Forms";
 import { ProtectedRoute } from "@/components/routes/ProtectedRoute";
@@ -103,6 +105,7 @@ import PartnerPortal from "@/pages/portal";
 import { ProfilePage } from "./pages/profile";
 
 import { AwaitingApprovalPage } from "./pages/awaitingApproval";
+import UnderConstruction from "@/pages/UnderConstruction";
 
 // IMPORTANT: Remove the BrowserRouter from here since it's in your provider or main file
 function App() {
@@ -116,6 +119,9 @@ function App() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/partnerships" element={<PartnershipsPage />} />
+      <Route path="/partnerships/journey" element={< Journey />} />
+      <Route path="/partnerships/apply" element={< Apply />} />
+
 
       {/* Auth Routes */}
       <Route path="/login" element={<LoginForm />} />
@@ -133,7 +139,8 @@ function App() {
           <ProfilePage />
         </ProtectedRoute>
       } />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      {/* Catch-all route for undefined pages */}
+      <Route path="*" element={<UnderConstruction />} />
     </Routes>
   );
 }

@@ -143,7 +143,7 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Button,
+
 } from "@heroui/react";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
@@ -160,7 +160,7 @@ import LoginModal from "../Auth/Modals/login-modal";
 import { useApp } from "@/components/context/AppContext";
 
 export const Navbar = () => {
-  const { user, logout } = useApp();
+  const { user} = useApp();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -180,14 +180,14 @@ export const Navbar = () => {
     />
   );
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      // Navigation is handled in the logout function
-    } catch (error) {
-      console.error('Navbar logout error:', error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await logout();
+  //     // Navigation is handled in the logout function
+  //   } catch (error) {
+  //     console.error('Navbar logout error:', error);
+  //   }
+  // };
 
   return (
     <HeroUINavbar maxWidth="xl" position="sticky" className="">
@@ -238,14 +238,14 @@ export const Navbar = () => {
               <Link href="/portal" color="primary">
                 Partner Portal
               </Link>
-              <Button
+              {/* <Button
                 color="danger"
                 variant="light"
                 onPress={handleLogout}
                 className="ml-2"
               >
                 Logout
-              </Button>
+              </Button> */}
             </div>
           ) : (
             <Link
