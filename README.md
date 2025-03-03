@@ -1,131 +1,139 @@
-# Flask React Project
+# The Behold Group Website
 
-This is the starter for the Flask React project.
+A modern React-based website for The Behold Group, built with React, React Router, and HeroUI components.
 
-## Getting started
+## 🚀 Features
 
-1. Clone this repository (only this branch).
+- **Responsive Design**: Fully responsive layout that works on desktop and mobile devices
+- **Dark/Light Theme**: Theme switching with persistent user preferences
+- **React Router**: Smooth navigation with React Router
+- **Modern UI Components**: Built using HeroUI component library
+- **Tailwind CSS**: Styling with Tailwind CSS for rapid development
 
-2. Install dependencies.
+## 📋 Pages
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+- **Home**: Landing page with main messaging
+- **About**: Company information and team details
+- **Services**: Service offerings and capabilities
+- **Partnerships**: Partnership information and opportunities
+- **Resources**: Helpful resources and materials
+- **Blog**: Company blog and articles
+- **Contact**: Contact information and form
+- **Pricing**: Pricing information (currently inactive)
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+## 🛠️ Tech Stack
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+- **React**: Frontend library for building user interfaces
+- **React Router**: For navigation between pages
+- **HeroUI**: UI component library
+- **Tailwind CSS**: Utility-first CSS framework
+- **Vite**: Fast build tool and development server
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+## 🏗️ Project Structure
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+```
+/
+├── components/         # Reusable React components
+│   ├── icons.tsx       # SVG icons
+│   ├── navbar.tsx      # Navigation bar
+│   ├── primitives.ts   # Design primitives
+│   └── theme-switch.tsx # Theme toggle component
+├── config/
+│   └── site.ts         # Site configuration
+├── hooks/
+│   └── use-theme.ts    # Theme management hook
+├── layouts/
+│   └── default.tsx     # Default page layout
+├── pages/              # Application pages
+│   ├── about.tsx
+│   ├── blog.tsx
+│   ├── contact.tsx
+│   ├── index.tsx
+│   ├── partnerships.tsx
+│   ├── pricing.tsx
+│   ├── resources.tsx
+│   └── services.tsx
+├── styles/
+│   └── globals.css     # Global styles
+├── App.tsx             # Main application component
+├── main.tsx            # Application entry point
+└── provider.tsx        # Application providers
+```
 
-   ```bash
-   pipenv shell
-   ```
+## 📥 Installation
 
-   ```bash
-   flask db upgrade
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/behold-group-website.git
+cd behold-group-website
+```
 
-   ```bash
-   flask seed all
-   ```
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
 
-   ```bash
-   flask run
-   ```
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+## 🚀 Building for Production
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+```
 
-## Deployment through Render.com
+The build artifacts will be stored in the `dist/` directory.
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+## 🔧 Configuration
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+Site configuration is managed in `config/site.ts`. You can modify:
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+- Navigation items
+- Social media links
+- Site metadata
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+## 🎨 Customization
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+### Theming
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+The site supports light and dark modes. The theme switching is handled by the `useTheme` hook in `hooks/use-theme.ts`.
 
-Start by giving your application a name.
+### Components
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+The project uses HeroUI components. Check the [HeroUI documentation](https://heroui.com) for more details on component usage and customization.
 
-Select "Free" as your Instance Type.
+### Styling
 
-### Add environment variables
+Styling is done using Tailwind CSS. Customize the design by modifying the Tailwind configuration or adding custom CSS in the `styles` directory.
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+## 📄 License
 
-Add the following keys and values in the Render GUI form:
+[MIT](LICENSE)
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+## 👥 Contributing
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Add the following keys and values:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+## 📞 Contact
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
-
-### Deploy
-
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
-
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
-
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+For questions or support, please contact us at [contact@beholdgroup.com](mailto:contact@beholdgroup.com)
