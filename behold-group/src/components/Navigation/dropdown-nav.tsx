@@ -31,7 +31,7 @@ const NavDropdown: React.FC<NavDropdownProps> = ({ items, label, href }) => {
         {label}
       </Link>
       <Dropdown>
-        <DropdownTrigger>
+        <DropdownTrigger className='hidden'>
           <Button
             variant="light"
             isIconOnly
@@ -54,7 +54,7 @@ const NavDropdown: React.FC<NavDropdownProps> = ({ items, label, href }) => {
         </DropdownTrigger>
         <DropdownMenu
           aria-label={`${label} dropdown menu`}
-          className="w-[340px]"
+          className="w-[340px] hidden"
           itemClasses={{
             base: "gap-4",
           }}

@@ -96,7 +96,7 @@ const Services: React.FC = () => {
                           color="primary"
                           href="/contact"
                           variant="flat"
-                          className="text-sm"
+                          className="text-sm hidden"
                           >
                 Schedule a Consultation
               </Button>

@@ -3,7 +3,8 @@ import React from "react";
 import ContactForm from "../Contact/contact-form";
 import ContactInfo from "../Contact/contact-info";
 import { FormErrors } from "@/types/form";
-import { Card, CardBody, Button, Image } from "@heroui/react";
+// import { Card, CardBody, Button, Image } from "@heroui/react";
+import { Button, Image } from "@heroui/react";
 import { title, } from "@/components/primitives";
 
 const Contact: React.FC = () => {
@@ -131,7 +132,7 @@ const Contact: React.FC = () => {
               />
             </div>
           </div>
-          <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10">
+          <div className="p-6 bg-gradient-to-r from-primary/10 to-secondary/10 hidden">
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>

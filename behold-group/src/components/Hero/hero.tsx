@@ -1,6 +1,6 @@
-import { title, subtitle } from "@/components/primitives";
-import { Button, Image } from "@heroui/react";
-import { Link } from "react-router-dom";
+// import { title, subtitle } from "@/components/primitives";
+// import { Button, Image } from "@heroui/react";
+// import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (

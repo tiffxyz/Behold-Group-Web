@@ -28,16 +28,16 @@ export const siteConfig = {
         { name: 'Technology Solutions', href: '/services/technology', description: 'Custom technology solutions and implementations' }
       ]
     },
-    {
-      label: "Resources",
-      href: "/resources",
-      dropdownItems: [
-        { name: 'Guides & Playbooks', href: '/resources/guides', description: 'Comprehensive guides for business success' },
-        { name: 'Templates', href: '/resources/templates', description: 'Ready-to-use business templates' },
-        { name: 'Case Studies', href: '/resources/case-studies', description: 'Real success stories from our clients' },
-        { name: 'Blog', href: '/blog', description: 'Latest insights and thought leadership' }
-      ]
-    },
+    // {
+    //   label: "Resources",
+    //   href: "/resources",
+    //   dropdownItems: [
+    //     { name: 'Guides & Playbooks', href: '/resources/guides', description: 'Comprehensive guides for business success' },
+    //     { name: 'Templates', href: '/resources/templates', description: 'Ready-to-use business templates' },
+    //     { name: 'Case Studies', href: '/resources/case-studies', description: 'Real success stories from our clients' },
+    //     { name: 'Blog', href: '/blog', description: 'Latest insights and thought leadership' }
+    //   ]
+    // },
     {
       label: "Partnerships",
       href: "/partnerships",
@@ -56,15 +56,15 @@ export const siteConfig = {
         { name: 'Careers', href: '/contact/careers', description: 'Join our growing team' }
       ]
     },
-    {
-      label: "Blog",
-      href: "/blog",
-      // dropdownItems: [
-      //   { name: 'Get in Touch', href: '/contact', description: 'Reach out to our team' },
-      //   { name: 'Support', href: '/contact/support', description: 'Technical support and assistance' },
-      //   { name: 'Careers', href: '/contact/careers', description: 'Join our growing team' }
-      // ]
-    },
+    // {
+    //   label: "Blog",
+    //   href: "/blog",
+    //   // dropdownItems: [
+    //   //   { name: 'Get in Touch', href: '/contact', description: 'Reach out to our team' },
+    //   //   { name: 'Support', href: '/contact/support', description: 'Technical support and assistance' },
+    //   //   { name: 'Careers', href: '/contact/careers', description: 'Join our growing team' }
+    //   // ]
+    // },
   ],
   navMenuItems: [
     {

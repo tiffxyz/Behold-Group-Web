@@ -1,5 +1,5 @@
 import { title, subtitle } from "@/components/primitives";
-import { Button, Image, link } from "@heroui/react";
+// import { Button, Image, link } from "@heroui/react";
 
 
 const Hero2 = () => {

@@ -3,6 +3,7 @@ import { title, subtitle } from "@/components/primitives";
 import { Button } from '@heroui/react';
 import UserMenu from '@/components/Navigation/userMenu';
 import { useApp } from '@/components/context/AppContext';
+import { Link } from 'react-router-dom';
 
 // Custom layout for the portal page
 const PortalLayout: React.FC<{children: React.ReactNode}> = ({ children }) => (
@@ -20,30 +21,36 @@ const PortalLayout: React.FC<{children: React.ReactNode}> = ({ children }) => (
   </div>
 );
 
+// interface DashboardTileProps {
+//   tileTitle: string;
+//   description: string;
+//   onClick: () => void;
+// }
 interface DashboardTileProps {
   tileTitle: string;
   description: string;
+  action: string;  // Add this line
   onClick: () => void;
 }
-
 interface DashboardTile {
   tileTitle: string;
   description: string;
   action: string;
 }
 
-const DashboardTile: React.FC<DashboardTileProps> = ({ tileTitle, description, onClick }) => (
-  <Card
-    className="aspect-square cursor-pointer hover:scale-105 transition-transform border border-default-200 bg-gradient-to-r from-blue-500 to-teal-500 p-3 text-white active:from-purple-500 active:to-blue-500"
-    onPress={onClick}
+const DashboardTile: React.FC<DashboardTileProps> = ({ tileTitle, description, action }) => (
+  <Link to={`/portal/${action}`}
+    className="block"
   >
-    <CardHeader className="pb-2">
-      <h3 className="text-lg font-semibold">{tileTitle}</h3>
-    </CardHeader>
-    <CardBody>
-      <p className="text-sm text-default-600">{description}</p>
-    </CardBody>
-  </Card>
+    <Card className="aspect-square cursor-pointer hover:scale-105 transition-transform border border-default-200 bg-gradient-to-r from-blue-500 to-teal-500 p-3 text-white active:from-purple-500 active:to-blue-500">
+      <CardHeader className="pb-2">
+        <h3 className="text-lg font-semibold">{tileTitle}</h3>
+      </CardHeader>
+      <CardBody>
+        <p className="text-sm text-default-600">{description}</p>
+      </CardBody>
+    </Card>
+  </Link>
 );
 
 const PartnerPortal: React.FC = () => {
@@ -133,25 +140,27 @@ const PartnerPortal: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {dashboardTiles.map((tile, index) => (
-            <DashboardTile
-              key={index}
-              tileTitle={tile.tileTitle}
-              description={tile.description}
-              onClick={() => handleTileClick(tile.action)}
-            />
-          ))}
+
+{dashboardTiles.map((tile, index) => (
+  <DashboardTile
+    key={index}
+    tileTitle={tile.tileTitle}
+    description={tile.description}
+    action={tile.action}
+    onClick={() => handleTileClick(tile.action)}
+  />
+))}
         </div>
 
         <div className="mt-8 flex gap-4 justify-center">
           <Button
-            className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90"
+            className="hidden bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90"
             onPress={() => handleTileClick('quick-start')}
           >
             Quick Start Guide
           </Button>
           <Button
-            className="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary/90"
+            className="hidden bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary/90"
             onPress={() => handleTileClick('contact-support')}
           >
             Contact Support

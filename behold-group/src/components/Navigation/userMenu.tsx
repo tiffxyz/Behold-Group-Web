@@ -2,22 +2,24 @@ import {
   Avatar, Button, Input, Switch
 } from "@heroui/react";
 import { useApp } from "../context/AppContext";
-import { useState} from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Moon, Settings, User, Home, FileText, Bell, MessageSquare, HelpCircle, LogOut } from "lucide-react";
 
 // Navigation items for the sidebar
 const navigationItems = [
-  { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
-  { name: "Profile", href: "/profile", icon: <User size={20} /> },
-  { name: "Documents", href: "/documents", icon: <FileText size={20} /> },
-  { name: "Notifications", href: "/notifications", icon: <Bell size={20} /> },
-  { name: "Messages", href: "/messages", icon: <MessageSquare size={20} /> },
-  { name: "Settings", href: "/settings", icon: <Settings size={20} /> },
-  { name: "Help & Support", href: "/help", icon: <HelpCircle size={20} /> }
+  { name: "Dashboard", path: "/dashboard", icon: <Home size={20} /> },
+  { name: "Profile", path: "/profile", icon: <User size={20} /> },
+  { name: "Documents", path: "/documents", icon: <FileText size={20} /> },
+  { name: "Notifications", path: "/notifications", icon: <Bell size={20} /> },
+  { name: "Messages", path: "/messages", icon: <MessageSquare size={20} /> },
+  { name: "Settings", path: "/settings", icon: <Settings size={20} /> },
+  { name: "Help & Support", path: "/help", icon: <HelpCircle size={20} /> }
 ];
 
 export default function UserMenu() {
   const { user, logout, isLoading } = useApp();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -29,6 +31,15 @@ export default function UserMenu() {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  // Properly typed navigation handler
+  const handleNavigation = (to: string, e: React.MouseEvent<HTMLButtonElement>): void => {
+    navigate(to);
+    if (window.innerWidth < 1280) {
+      setSidebarOpen(false);
+    }
+  };
+
 
   const handleLogout = async () => {
     console.log("Logout initiated");
@@ -124,25 +135,25 @@ export default function UserMenu() {
           <ul>
             {!isPortalPage && (
               <li className="mb-2">
-                <a
-                  href="/portal"
-                  className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                <button
+                  className="flex items-center w-full text-left p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                  onClick={(e) => handleNavigation("/portal", e)}
                 >
                   <Home size={20} className="mr-3" />
                   Partner Portal
-                </a>
+                </button>
               </li>
             )}
 
             {navigationItems.map((item) => (
               <li key={item.name} className="mb-2">
-                <a
-                  href={item.href}
-                  className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                <button
+                  className="flex items-center w-full text-left p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                  onClick={(e) => handleNavigation(item.path, e)}
                 >
                   <span className="mr-3">{item.icon}</span>
                   {item.name}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
@@ -160,7 +171,6 @@ export default function UserMenu() {
             />
           </div>
 
-          {/* Logout button - ensure it's visible and functional */}
           {user && (
             <button
               onClick={handleLogout}
