@@ -1,347 +1,1220 @@
-// // // components/user-menu/user-menu.tsx
+// // // // import {
+// // // //     Avatar,
+// // // //     Button,
+// // // //     Input,
+// // // //     Switch
+// // // //   } from "@heroui/react";
+// // // //   import { useApp } from "../context/AppContext";
+// // // //   import { useState, useEffect } from "react";
+// // // //   import { Search, Moon, Settings, User, Home, FileText, Bell, MessageSquare, HelpCircle, LogOut } from "lucide-react";
+
+// // // //   // Navigation items for the sidebar
+// // // //   const navigationItems = [
+// // // //     { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
+// // // //     { name: "Profile", href: "/profile", icon: <User size={20} /> },
+// // // //     { name: "Documents", href: "/documents", icon: <FileText size={20} /> },
+// // // //     { name: "Notifications", href: "/notifications", icon: <Bell size={20} /> },
+// // // //     { name: "Messages", href: "/messages", icon: <MessageSquare size={20} /> },
+// // // //     { name: "Settings", href: "/settings", icon: <Settings size={20} /> },
+// // // //     { name: "Help & Support", href: "/help", icon: <HelpCircle size={20} /> }
+// // // //   ];
+
+// // // //   export default function UserMenu() {
+// // // //     const { user, logout, isLoading } = useApp();
+// // // //     const [sidebarOpen, setSidebarOpen] = useState(false);
+// // // //     const [isLoggingOut, setIsLoggingOut] = useState(false);
+// // // //     const [darkMode, setDarkMode] = useState(false);
+// // // //     const [searchQuery, setSearchQuery] = useState("");
+
+// // // //     // Check if we're on the portal page to hide the Partner Portal link
+// // // //     const isPortalPage = window.location.pathname === "/partner-portal";
+
+// // // //     const toggleSidebar = () => {
+// // // //       setSidebarOpen(!sidebarOpen);
+// // // //     };
+
+// // // //     const handleLogout = async () => {
+// // // //       setIsLoggingOut(true);
+// // // //       try {
+// // // //         await logout();
+// // // //         // Redirect will be handled by your app context
+// // // //       } catch (error) {
+// // // //         console.error("Logout failed:", error);
+// // // //         setIsLoggingOut(false);
+// // // //       }
+// // // //     };
+
+// // // //     const toggleDarkMode = () => {
+// // // //       setDarkMode(!darkMode);
+// // // //       // Add your dark mode implementation here
+// // // //       document.documentElement.classList.toggle('dark');
+// // // //     };
+
+// // // //     // Format the user's full name
+// // // //     const getUserFullName = () => {
+// // // //       if (!user) return "Guest";
+
+// // // //       if (user.firstName && user.lastName) {
+// // // //         return `${user.firstName} ${user.lastName}`;
+// // // //       } else if (user.firstName) {
+// // // //         return user.firstName;
+// // // //       } else if (user.lastName) {
+// // // //         return user.lastName;
+// // // //       } else {
+// // // //         return user.username || "User";
+// // // //       }
+// // // //     };
+
+// // // //     // Format company name
+// // // //     const getCompanyName = () => {
+// // // //       return user?.companyName || "";
+// // // //     };
+
+// // // //     // Sidebar component
+// // // //     const Sidebar = () => (
+// // // //       <div
+// // // //         className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-gray-900 shadow-lg border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out z-50 ${
+// // // //           sidebarOpen ? "translate-x-0" : "translate-x-full"
+// // // //         }`}
+// // // //       >
+// // // //         <div className="p-5 flex flex-col h-full">
+// // // //           <div className="flex justify-between items-center mb-6">
+// // // //             <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+// // // //               Welcome, {getUserFullName()}
+// // // //             </h2>
+// // // //             <button
+// // // //               onClick={toggleSidebar}
+// // // //               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+// // // //             >
+// // // //               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+// // // //                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+// // // //               </svg>
+// // // //             </button>
+// // // //           </div>
+
+// // // //           {user && (
+// // // //             <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+// // // //               <div className="flex items-center mb-3">
+// // // //                 <Avatar
+// // // //                   isBordered
+// // // //                   color="primary"
+// // // //                   name={getUserFullName()}
+// // // //                   size="lg"
+// // // //                   className="mr-3"
+// // // //                 />
+// // // //                 <div>
+// // // //                   <p className="font-bold text-gray-800 dark:text-white">{getUserFullName()}</p>
+// // // //                   <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+// // // //                   {getCompanyName() && (
+// // // //                     <p className="text-sm text-gray-600 dark:text-gray-400">{getCompanyName()}</p>
+// // // //                   )}
+// // // //                 </div>
+// // // //               </div>
+// // // //             </div>
+// // // //           )}
+
+// // // //           <div className="mb-6">
+// // // //             <Input
+// // // //               startContent={<Search size={18} />}
+// // // //               placeholder="Search..."
+// // // //               value={searchQuery}
+// // // //               onChange={(e) => setSearchQuery(e.target.value)}
+// // // //               className="w-full"
+// // // //             />
+// // // //           </div>
+
+// // // //           <nav className="flex-grow">
+// // // //             <ul>
+// // // //               {!isPortalPage && (
+// // // //                 <li className="mb-2">
+// // // //                   <a
+// // // //                     href="/partner-portal"
+// // // //                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+// // // //                   >
+// // // //                     <Home size={20} className="mr-3" />
+// // // //                     Partner Portal
+// // // //                   </a>
+// // // //                 </li>
+// // // //               )}
+
+// // // //               {navigationItems.map((item) => (
+// // // //                 <li key={item.name} className="mb-2">
+// // // //                   <a
+// // // //                     href={item.href}
+// // // //                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+// // // //                   >
+// // // //                     <span className="mr-3">{item.icon}</span>
+// // // //                     {item.name}
+// // // //                   </a>
+// // // //                 </li>
+// // // //               ))}
+// // // //             </ul>
+// // // //           </nav>
+
+// // // //           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+// // // //             <div className="flex items-center justify-between p-3 mb-4">
+// // // //               <span className="text-gray-700 dark:text-gray-300 flex items-center">
+// // // //                 <Moon size={20} className="mr-3" />
+// // // //                 Dark Mode
+// // // //               </span>
+// // // //               <Switch
+// // // //                 checked={darkMode}
+// // // //                 onChange={toggleDarkMode}
+// // // //               />
+// // // //             </div>
+
+// // // //             {user && (
+// // // //               <button
+// // // //                 onClick={handleLogout}
+// // // //                 disabled={isLoading || isLoggingOut}
+// // // //                 className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+// // // //               >
+// // // //                 <LogOut size={20} className="mr-3" />
+// // // //                 {isLoading || isLoggingOut ? 'Logging out...' : 'Log Out'}
+// // // //               </button>
+// // // //             )}
+// // // //           </div>
+// // // //         </div>
+// // // //       </div>
+// // // //     );
+
+// // // //     // Sidebar Toggle Button that stays visible
+// // // //     const SidebarToggle = () => (
+// // // //       <Button
+// // // //         isIconOnly
+// // // //         variant="light"
+// // // //         onPress={toggleSidebar}
+// // // //         className="fixed top-4 right-4 z-40 bg-white dark:bg-gray-800 shadow-md rounded-full"
+// // // //         aria-label="Toggle Navigation Sidebar"
+// // // //       >
+// // // //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+// // // //           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+// // // //         </svg>
+// // // //       </Button>
+// // // //     );
+
+// // // //     // Render sidebar, logout overlay, and toggle
+// // // //     return (
+// // // //       <>
+// // // //         {isLoggingOut && (
+// // // //           <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center">
+// // // //             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
+// // // //               <svg className="animate-spin h-12 w-12 text-primary mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+// // // //                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+// // // //                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+// // // //               </svg>
+// // // //               <h3 className="text-xl font-bold text-gray-800 dark:text-white">Logging Out...</h3>
+// // // //               <p className="text-gray-600 dark:text-gray-400">Please wait while we sign you out.</p>
+// // // //             </div>
+// // // //           </div>
+// // // //         )}
+
+// // // //         {/* The toggle button is always visible in a fixed position */}
+// // // //         <SidebarToggle />
+
+// // // //         {/* The sidebar */}
+// // // //         <Sidebar />
+
+// // // //         {/* Overlay to close sidebar when clicking outside */}
+// // // //         {sidebarOpen && (
+// // // //           <div
+// // // //             className="fixed inset-0 bg-black bg-opacity-50 z-40"
+// // // //             onClick={toggleSidebar}
+// // // //           />
+// // // //         )}
+// // // //       </>
+// // // //     );
+// // // //   }
+
+
+// // // import {
+// // //     Avatar,
+// // //     Button,
+// // //     Input,
+// // //     Switch
+// // //   } from "@heroui/react";
+// // //   import { useApp } from "../context/AppContext";
+// // //   import { useState, useEffect } from "react";
+// // //   import { Search, Moon, Settings, User, Home, FileText, Bell, MessageSquare, HelpCircle, LogOut } from "lucide-react";
+
+// // //   // Navigation items for the sidebar
+// // //   const navigationItems = [
+// // //     { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
+// // //     { name: "Profile", href: "/profile", icon: <User size={20} /> },
+// // //     { name: "Documents", href: "/documents", icon: <FileText size={20} /> },
+// // //     { name: "Notifications", href: "/notifications", icon: <Bell size={20} /> },
+// // //     { name: "Messages", href: "/messages", icon: <MessageSquare size={20} /> },
+// // //     { name: "Settings", href: "/settings", icon: <Settings size={20} /> },
+// // //     { name: "Help & Support", href: "/help", icon: <HelpCircle size={20} /> }
+// // //   ];
+
+// // //   export default function UserMenu() {
+// // //     const { user, logout, isLoading } = useApp();
+// // //     const [sidebarOpen, setSidebarOpen] = useState(false);
+// // //     const [isLoggingOut, setIsLoggingOut] = useState(false);
+// // //     const [darkMode, setDarkMode] = useState(false);
+// // //     const [searchQuery, setSearchQuery] = useState("");
+
+// // //     // Check if we're on the portal page to hide the Partner Portal link
+// // //     const isPortalPage = window.location.pathname === "/partner-portal";
+
+// // //     const toggleSidebar = () => {
+// // //       setSidebarOpen(!sidebarOpen);
+// // //     };
+
+// // //     const handleLogout = async () => {
+// // //       setIsLoggingOut(true);
+// // //       try {
+// // //         await logout();
+// // //         // Redirect will be handled by your app context
+// // //       } catch (error) {
+// // //         console.error("Logout failed:", error);
+// // //         setIsLoggingOut(false);
+// // //       }
+// // //     };
+
+// // //     const toggleDarkMode = () => {
+// // //       setDarkMode(!darkMode);
+// // //       // Add your dark mode implementation here
+// // //       document.documentElement.classList.toggle('dark');
+// // //     };
+
+// // //     // Format the user's full name
+// // //     const getUserFullName = () => {
+// // //       if (!user) return "Guest";
+
+// // //       if (user.firstName && user.lastName) {
+// // //         return `${user.firstName} ${user.lastName}`;
+// // //       } else if (user.firstName) {
+// // //         return user.firstName;
+// // //       } else if (user.lastName) {
+// // //         return user.lastName;
+// // //       } else {
+// // //         return user.username || "User";
+// // //       }
+// // //     };
+
+// // //     // Check if sidebar should be initially open based on screen size
+// // //     useEffect(() => {
+// // //       // On larger screens, open the sidebar by default
+// // //       const isLargeScreen = window.innerWidth >= 1280; // xl breakpoint
+// // //       setSidebarOpen(isLargeScreen);
+
+// // //       // Add listener for screen size changes
+// // //       const handleResize = () => {
+// // //         const isLarge = window.innerWidth >= 1280;
+// // //         if (isLarge && !sidebarOpen) {
+// // //           setSidebarOpen(true);
+// // //         }
+// // //       };
+
+// // //       window.addEventListener('resize', handleResize);
+// // //       return () => window.removeEventListener('resize', handleResize);
+// // //     }, []);
+
+// // //     // Format company name
+// // //     const getCompanyName = () => {
+// // //       return user?.companyName || "";
+// // //     };
+
+// // //     // Sidebar component
+// // //     const Sidebar = () => (
+// // //       <div
+// // //         className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-gray-900 shadow-lg border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out z-50 ${
+// // //           sidebarOpen ? "translate-x-0" : "translate-x-full"
+// // //         }`}
+// // //       >
+// // //         <div className="p-5 flex flex-col h-full">
+// // //           <div className="flex justify-between items-center mb-6">
+// // //             <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+// // //               Welcome, {getUserFullName()}
+// // //             </h2>
+// // //             <button
+// // //               onClick={toggleSidebar}
+// // //               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+// // //             >
+// // //               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+// // //                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+// // //               </svg>
+// // //             </button>
+// // //           </div>
+
+// // //           {user && (
+// // //             <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+// // //               <div className="flex items-center mb-3">
+// // //                 <Avatar
+// // //                   isBordered
+// // //                   color="primary"
+// // //                   name={getUserFullName()}
+// // //                   size="lg"
+// // //                   className="mr-3"
+// // //                 />
+// // //                 <div>
+// // //                   <p className="font-bold text-gray-800 dark:text-white">{getUserFullName()}</p>
+// // //                   <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+// // //                   {getCompanyName() && (
+// // //                     <p className="text-sm text-gray-600 dark:text-gray-400">{getCompanyName()}</p>
+// // //                   )}
+// // //                 </div>
+// // //               </div>
+// // //             </div>
+// // //           )}
+
+// // //           <div className="mb-6">
+// // //             <Input
+// // //               startContent={<Search size={18} />}
+// // //               placeholder="Search..."
+// // //               value={searchQuery}
+// // //               onChange={(e) => setSearchQuery(e.target.value)}
+// // //               className="w-full"
+// // //             />
+// // //           </div>
+
+// // //           <nav className="flex-grow">
+// // //             <ul>
+// // //               {!isPortalPage && (
+// // //                 <li className="mb-2">
+// // //                   <a
+// // //                     href="/partner-portal"
+// // //                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+// // //                   >
+// // //                     <Home size={20} className="mr-3" />
+// // //                     Partner Portal
+// // //                   </a>
+// // //                 </li>
+// // //               )}
+
+// // //               {navigationItems.map((item) => (
+// // //                 <li key={item.name} className="mb-2">
+// // //                   <a
+// // //                     href={item.href}
+// // //                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+// // //                   >
+// // //                     <span className="mr-3">{item.icon}</span>
+// // //                     {item.name}
+// // //                   </a>
+// // //                 </li>
+// // //               ))}
+// // //             </ul>
+// // //           </nav>
+
+// // //           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+// // //             <div className="flex items-center justify-between p-3 mb-4">
+// // //               <span className="text-gray-700 dark:text-gray-300 flex items-center">
+// // //                 <Moon size={20} className="mr-3" />
+// // //                 Dark Mode
+// // //               </span>
+// // //               <Switch
+// // //                 checked={darkMode}
+// // //                 onChange={toggleDarkMode}
+// // //               />
+// // //             </div>
+
+// // //             {user && (
+// // //               <button
+// // //                 onClick={handleLogout}
+// // //                 disabled={isLoading || isLoggingOut}
+// // //                 className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+// // //               >
+// // //                 <LogOut size={20} className="mr-3" />
+// // //                 {isLoading || isLoggingOut ? 'Logging out...' : 'Log Out'}
+// // //               </button>
+// // //             )}
+// // //           </div>
+// // //         </div>
+// // //       </div>
+// // //     );
+
+// // //     // Sidebar Toggle Button that stays visible
+// // //     const SidebarToggle = () => (
+// // //       <Button
+// // //         isIconOnly
+// // //         variant="light"
+// // //         onPress={toggleSidebar}
+// // //         className="fixed top-4 right-4 z-40 bg-white dark:bg-gray-800 shadow-md rounded-full"
+// // //         aria-label="Toggle Navigation Sidebar"
+// // //       >
+// // //         {sidebarOpen ? (
+// // //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+// // //             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+// // //           </svg>
+// // //         ) : (
+// // //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+// // //             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+// // //           </svg>
+// // //         )}
+// // //       </Button>
+// // //     );
+
+// // //     // Render sidebar, logout overlay, and toggle
+// // //     return (
+// // //       <>
+// // //         {isLoggingOut && (
+// // //           <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center">
+// // //             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
+// // //               <svg className="animate-spin h-12 w-12 text-primary mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+// // //                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+// // //                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+// // //               </svg>
+// // //               <h3 className="text-xl font-bold text-gray-800 dark:text-white">Logging Out...</h3>
+// // //               <p className="text-gray-600 dark:text-gray-400">Please wait while we sign you out.</p>
+// // //             </div>
+// // //           </div>
+// // //         )}
+
+// // //         {/* The toggle button is always visible in a fixed position */}
+// // //         <SidebarToggle />
+
+// // //         {/* The sidebar */}
+// // //         <Sidebar />
+
+// // //         {/* Overlay to close sidebar when clicking outside */}
+// // //         {sidebarOpen && (
+// // //           <div
+// // //             className="fixed inset-0 bg-black bg-opacity-50 z-40"
+// // //             onClick={toggleSidebar}
+// // //           />
+// // //         )}
+// // //       </>
+// // //     );
+// // //   }
+
+
 // // import {
-// //   Dropdown,
-// //   DropdownTrigger,
-// //   DropdownMenu,
-// //   DropdownItem,
-// //   Button
-// // } from "@heroui/react";
-// // // import { Link } from "@heroui/link";
+// //     Avatar,
+// //     Button,
+// //     Input,
+// //     Switch
+// //   } from "@heroui/react";
+// //   import { useApp } from "../context/AppContext";
+// //   import { useState, useEffect } from "react";
+// //   import { Search, Moon, Settings, User, Home, FileText, Bell, MessageSquare, HelpCircle, LogOut } from "lucide-react";
+// //   import { UserType } from "@/types/user";
 
-// // const menuItems = [
-// //   { name: "Profile", href: "/profile" },
-// //   { name: "Dashboard", href: "/dashboard" },
-// //   { name: "Settings", href: "/settings" },
-// //   { name: "Help & Feedback", href: "/help" },
-// //   { name: "Log Out", href: "/logout" }
-// // ];
+// //   // Navigation items for the sidebar
+// //   const navigationItems = [
+// //     { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
+// //     { name: "Profile", href: "/profile", icon: <User size={20} /> },
+// //     { name: "Documents", href: "/documents", icon: <FileText size={20} /> },
+// //     { name: "Notifications", href: "/notifications", icon: <Bell size={20} /> },
+// //     { name: "Messages", href: "/messages", icon: <MessageSquare size={20} /> },
+// //     { name: "Settings", href: "/settings", icon: <Settings size={20} /> },
+// //     { name: "Help & Support", href: "/help", icon: <HelpCircle size={20} /> }
+// //   ];
 
-// // export const UserMenu = () => {
-// //   return (
-// //     <Dropdown>
-// //       <DropdownTrigger>
-// //         <Button
-// //           variant="light"
-// //           isIconOnly
-// //           className="text-sm"
-// //         >
-// //           {/* ☰ */}
+// //   export default function UserMenu() {
+// //     const { user, logout, isLoading } = useApp();
+// //     const [sidebarOpen, setSidebarOpen] = useState(false);
+// //     const [isLoggingOut, setIsLoggingOut] = useState(false);
+// //     const [darkMode, setDarkMode] = useState(false);
+// //     const [searchQuery, setSearchQuery] = useState("");
 
-// //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-// //   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-// // </svg>
+// //     // Check if we're on the portal page to hide the Partner Portal link
+// //     const isPortalPage = window.location.pathname === "/partner-portal";
 
+// //     const toggleSidebar = () => {
+// //       setSidebarOpen(!sidebarOpen);
+// //     };
 
-// //         </Button>
-// //       </DropdownTrigger>
-// //       <DropdownMenu aria-label="User actions">
-// //         {menuItems.map((item, index) => (
-// //           <DropdownItem
-// //             key={item.name}
-// //             className={index === menuItems.length - 1 ? "text-danger" : ""}
-// //             href={item.href}
-// //           >
-// //             {item.name}
-// //           </DropdownItem>
-// //         ))}
-// //       </DropdownMenu>
-// //     </Dropdown>
-// //   );
-// // };
+// //     const handleLogout = async () => {
+// //       setIsLoggingOut(true);
+// //       try {
+// //         await logout();
+// //         // Redirect will be handled by your app context
+// //       } catch (error) {
+// //         console.error("Logout failed:", error);
+// //         setIsLoggingOut(false);
+// //       }
+// //     };
 
+// //     const toggleDarkMode = () => {
+// //       setDarkMode(!darkMode);
+// //       // Add your dark mode implementation here
+// //       document.documentElement.classList.toggle('dark');
+// //     };
 
+// //     // Format the user's full name
+// //     const getUserFullName = () => {
+// //       if (!user) return "Guest";
 
-// // import {
-// //   Dropdown,
-// //   DropdownTrigger,
-// //   DropdownMenu,
-// //   DropdownItem,
-// //   // Button,
-// //   Avatar
-// // } from "@heroui/react";
-// // import { useAuth } from '../context/AuthContext';
+// //       if (user.firstName && user.lastName) {
+// //         return `${user.firstName} ${user.lastName}`;
+// //       } else if (user.firstName) {
+// //         return user.firstName;
+// //       } else if (user.lastName) {
+// //         return user.lastName;
+// //       } else {
+// //         return user.username || "User";
+// //       }
+// //     };
 
-// // export default function UserMenu() {
-// //   const { user, logout } = useAuth();
+// //     // Check if sidebar should be initially open based on screen size
+// //     useEffect(() => {
+// //       // On larger screens, open the sidebar by default
+// //       const isLargeScreen = window.innerWidth >= 1280; // xl breakpoint
+// //       setSidebarOpen(isLargeScreen);
 
-// //   if (!user) return null;
+// //       // Add listener for screen size changes
+// //       const handleResize = () => {
+// //         const isLarge = window.innerWidth >= 1280;
+// //         if (isLarge && !sidebarOpen) {
+// //           setSidebarOpen(true);
+// //         }
+// //       };
 
-// //   return (
-// //     <Dropdown placement="bottom-end">
-// //       <DropdownTrigger>
-// //         <Avatar
-// //           isBordered
-// //           as="button"
-// //           className="transition-transform"
-// //           color="primary"
-// //           name={user.username}
-// //           size="sm"
-// //         />
-// //       </DropdownTrigger>
-// //       <DropdownMenu aria-label="Profile Actions" variant="flat">
-// //         <DropdownItem key="profile" className="h-14 gap-2">
-// //           <p className="font-semibold">Signed in as</p>
-// //           <p className="font-semibold">{user.email}</p>
-// //         </DropdownItem>
-// //         <DropdownItem key="settings">My Settings</DropdownItem>
-// //         <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-// //         <DropdownItem key="logout" color="danger" onPress={logout}>
-// //           Log Out
-// //         </DropdownItem>
-// //       </DropdownMenu>
-// //     </Dropdown>
-// //   );
-// // }
+// //       window.addEventListener('resize', handleResize);
+// //       return () => window.removeEventListener('resize', handleResize);
+// //     }, []);
 
+// //     // Format company name
+// //     const getCompanyName = () => {
+// //       return user?.companyName || "";
+// //     };
 
-// // src/components/userMenu.tsx
-// // import {
-// //   Dropdown,
-// //   DropdownTrigger,
-// //   DropdownMenu,
-// //   DropdownItem,
-// //   Avatar,
-// //   Button
-// // } from "@heroui/react";
-// // import { useAuth } from "../context/AuthContext";
-// // import { useDisclosure } from "@heroui/react";
-// // import LoginModal from '../Modals/login-modal';
+// //     // Sidebar component
+// //     const Sidebar = () => (
+// //       <div
+// //         className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-gray-900 shadow-lg border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out z-50 ${
+// //           sidebarOpen ? "translate-x-0" : "translate-x-full"
+// //         }`}
+// //       >
+// //         <div className="p-5 flex flex-col h-full">
+// //           <div className="flex justify-between items-center mb-6">
+// //             <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+// //               Welcome, {getUserFullName()}
+// //             </h2>
+// //             <button
+// //               onClick={toggleSidebar}
+// //               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+// //             >
+// //               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+// //                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+// //               </svg>
+// //             </button>
+// //           </div>
 
-// // export default function UserMenu() {
-// //   const { user, logout, isLoading } = useAuth();
-// //   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+// //           {user && (
+// //             <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+// //               <div className="flex items-center mb-3">
+// //                 <Avatar
+// //                   isBordered
+// //                   color="primary"
+// //                   name={getUserFullName()}
+// //                   size="lg"
+// //                   className="mr-3"
+// //                 />
+// //                 <div>
+// //                   <p className="font-bold text-gray-800 dark:text-white">{getUserFullName()}</p>
+// //                   <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+// //                   {getCompanyName() && (
+// //                     <p className="text-sm text-gray-600 dark:text-gray-400">{getCompanyName()}</p>
+// //                   )}
+// //                 </div>
+// //               </div>
+// //             </div>
+// //           )}
 
-// //   // If no user is logged in, show login button
-// //   if (!user) {
+// //           <div className="mb-6">
+// //             <Input
+// //               startContent={<Search size={18} />}
+// //               placeholder="Search..."
+// //               value={searchQuery}
+// //               onChange={(e) => setSearchQuery(e.target.value)}
+// //               className="w-full"
+// //             />
+// //           </div>
+
+// //           <nav className="flex-grow">
+// //             <ul>
+// //               {!isPortalPage && (
+// //                 <li className="mb-2">
+// //                   <a
+// //                     href="/partner-portal"
+// //                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+// //                   >
+// //                     <Home size={20} className="mr-3" />
+// //                     Partner Portal
+// //                   </a>
+// //                 </li>
+// //               )}
+
+// //               {navigationItems.map((item) => (
+// //                 <li key={item.name} className="mb-2">
+// //                   <a
+// //                     href={item.href}
+// //                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+// //                   >
+// //                     <span className="mr-3">{item.icon}</span>
+// //                     {item.name}
+// //                   </a>
+// //                 </li>
+// //               ))}
+// //             </ul>
+// //           </nav>
+
+// //           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+// //             <div className="flex items-center justify-between p-3 mb-4">
+// //               <span className="text-gray-700 dark:text-gray-300 flex items-center">
+// //                 <Moon size={20} className="mr-3" />
+// //                 Dark Mode
+// //               </span>
+// //               <Switch
+// //                 checked={darkMode}
+// //                 onChange={toggleDarkMode}
+// //               />
+// //             </div>
+
+// //             {user && (
+// //               <button
+// //                 onClick={handleLogout}
+// //                 disabled={isLoading || isLoggingOut}
+// //                 className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+// //               >
+// //                 <LogOut size={20} className="mr-3" />
+// //                 {isLoading || isLoggingOut ? 'Logging out...' : 'Log Out'}
+// //               </button>
+// //             )}
+// //           </div>
+// //         </div>
+// //       </div>
+// //     );
+
+// //     // Sidebar Toggle Button that stays visible
+// //     const SidebarToggle = () => (
+// //       <Button
+// //         isIconOnly
+// //         variant="light"
+// //         onPress={toggleSidebar}
+// //         className="fixed top-4 right-4 z-40 bg-white dark:bg-gray-800 shadow-md rounded-full"
+// //         aria-label="Toggle Navigation Sidebar"
+// //       >
+// //         {sidebarOpen ? (
+// //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+// //             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+// //           </svg>
+// //         ) : (
+// //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+// //             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+// //           </svg>
+// //         )}
+// //       </Button>
+// //     );
+
+// //     // Render sidebar, logout overlay, and toggle
 // //     return (
 // //       <>
-// //         <Button
-// //           color="primary"
-// //           variant="flat"
-// //           onPress={onOpen}
-// //           size="sm"
-// //         >
-// //           Login
-// //         </Button>
-// //         <LoginModal isOpen={isOpen} onOpenChange={onOpenChange} />
+// //         {isLoggingOut && (
+// //           <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center">
+// //             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
+// //               <svg className="animate-spin h-12 w-12 text-primary mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+// //                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+// //                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+// //               </svg>
+// //               <h3 className="text-xl font-bold text-gray-800 dark:text-white">Logging Out...</h3>
+// //               <p className="text-gray-600 dark:text-gray-400">Please wait while we sign you out.</p>
+// //             </div>
+// //           </div>
+// //         )}
+
+// //         {/* The toggle button is always visible in a fixed position */}
+// //         <SidebarToggle />
+
+// //         {/* The sidebar */}
+// //         <Sidebar />
+
+// //         {/* Overlay to close sidebar when clicking outside */}
+// //         {sidebarOpen && (
+// //           <div
+// //             className="fixed inset-0 bg-black bg-opacity-50 z-40"
+// //             onClick={toggleSidebar}
+// //           />
+// //         )}
 // //       </>
 // //     );
 // //   }
-
-// //   // If user is logged in, show user menu
-// //   return (
-// //     <Dropdown placement="bottom-end">
-// //       <DropdownTrigger>
-// //         <Avatar
-// //           isBordered
-// //           as="button"
-// //           className="transition-transform"
-// //           color="primary"
-// //           name={user.username}
-// //           size="sm"
-// //         />
-// //       </DropdownTrigger>
-// //       <DropdownMenu aria-label="Profile Actions" variant="flat">
-// //         <DropdownItem key="profile" className="h-14 gap-2">
-// //           <p className="font-semibold">Signed in as</p>
-// //           <p className="font-semibold">{user.email}</p>
-// //         </DropdownItem>
-// //         <DropdownItem key="settings">My Settings</DropdownItem>
-// //         <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-// //         <DropdownItem
-// //           key="logout"
-// //           color="danger"
-// //           onPress={logout}
-// //           isDisabled={isLoading}
-// //         >
-// //           {isLoading ? 'Logging out...' : 'Log Out'}
-// //         </DropdownItem>
-// //       </DropdownMenu>
-// //     </Dropdown>
-// //   );
-// // }
-
-
-// // // src/components/userMenu.tsx
-// // import {
-// //   Dropdown,
-// //   DropdownTrigger,
-// //   DropdownMenu,
-// //   DropdownItem,
-// //   Avatar,
-// //   Button
-// // } from "@heroui/react";
-// // import { useAuth } from "../context/AuthContext";
-// // import { useDisclosure } from "@heroui/react";
-// // import LoginModal from '../Modals/login-modal';
-
-// // export default function UserMenu() {
-// //   const { user, logout, isLoading } = useAuth();
-// //   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-// //   // If no user is logged in, show login button
-// //   if (!user) {
-// //     return (
-// //       <>
-// //         <Button
-// //           color="primary"
-// //           variant="flat"
-// //           onPress={onOpen}
-// //           size="sm"
-// //         >
-// //           Login
-// //         </Button>
-// //         <LoginModal isOpen={isOpen} onOpenChange={onOpenChange} />
-// //       </>
-// //     );
-// //   }
-
-// //   // If user is logged in, show user menu
-// //   return (
-// //     <Dropdown placement="bottom-end">
-// //       <DropdownTrigger>
-// //         <Avatar
-// //           isBordered
-// //           as="button"
-// //           className="transition-transform"
-// //           color="primary"
-// //           name={user.username}
-// //           size="sm"
-// //         />
-// //       </DropdownTrigger>
-// //       <DropdownMenu aria-label="Profile Actions" variant="flat">
-// //         <DropdownItem key="profile" className="h-14 gap-2">
-// //           <p className="font-semibold">Signed in as</p>
-// //           <p className="font-semibold">{user.email}</p>
-// //         </DropdownItem>
-// //         <DropdownItem key="settings">My Settings</DropdownItem>
-// //         <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-// //         <DropdownItem
-// //           key="logout"
-// //           color="danger"
-// //           onPress={logout}
-// //           isDisabled={isLoading}
-// //         >
-// //           {isLoading ? 'Logging out...' : 'Log Out'}
-// //         </DropdownItem>
-// //       </DropdownMenu>
-// //     </Dropdown>
-// //   );
-// // }
-
-// // // src/components/userMenu.tsx
-// // import {
-// //   Dropdown,
-// //   DropdownTrigger,
-// //   DropdownMenu,
-// //   DropdownItem,
-// //   Avatar
-// // } from "@heroui/react";
-// // import { useAuth } from "../context/AuthContext";
-
-// // export default function UserMenu() {
-// //   const { user, logout, isLoading } = useAuth();
-
-// //   // If no user is logged in, return null (no button displayed)
-// //   if (!user) {
-// //     return null;
-// //   }
-
-// //   // If user is logged in, show user menu
-// //   return (
-// //     <Dropdown placement="bottom-end">
-// //       <DropdownTrigger>
-// //         <Avatar
-// //           isBordered
-// //           as="button"
-// //           className="transition-transform"
-// //           color="primary"
-// //           name={user.username}
-// //           size="sm"
-// //         />
-// //       </DropdownTrigger>
-// //       <DropdownMenu aria-label="Profile Actions" variant="flat">
-// //         <DropdownItem key="profile" className="h-14 gap-2">
-// //           <p className="font-semibold">Signed in as</p>
-// //           <p className="font-semibold">{user.email}</p>
-// //         </DropdownItem>
-// //         <DropdownItem key="settings">My Settings</DropdownItem>
-// //         <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-// //         <DropdownItem
-// //           key="logout"
-// //           color="danger"
-// //           onPress={logout}
-// //           isDisabled={isLoading}
-// //         >
-// //           {isLoading ? 'Logging out...' : 'Log Out'}
-// //         </DropdownItem>
-// //       </DropdownMenu>
-// //     </Dropdown>
-// //   );
-// // }
 
 
 // import {
-//   Dropdown,
-//   DropdownTrigger,
-//   DropdownMenu,
-//   DropdownItem,
-//   Avatar
-// } from "@heroui/react";
-// import { useApp } from "../context/AppContext";
+//     Avatar,
+//     Button,
+//     Input,
+//     Switch
+//   } from "@heroui/react";
+//   import { useApp } from "../context/AppContext";
+//   import { useState, useEffect } from "react";
+//   import { Search, Moon, Settings, User, Home, FileText, Bell, MessageSquare, HelpCircle, LogOut } from "lucide-react";
 
-// export default function UserMenu() {
-//   const { user, logout, isLoading } = useApp();
+//   // Navigation items for the sidebar
+//   const navigationItems = [
+//     { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
+//     { name: "Profile", href: "/profile", icon: <User size={20} /> },
+//     { name: "Documents", href: "/documents", icon: <FileText size={20} /> },
+//     { name: "Notifications", href: "/notifications", icon: <Bell size={20} /> },
+//     { name: "Messages", href: "/messages", icon: <MessageSquare size={20} /> },
+//     { name: "Settings", href: "/settings", icon: <Settings size={20} /> },
+//     { name: "Help & Support", href: "/help", icon: <HelpCircle size={20} /> }
+//   ];
 
-//   // If no user is logged in, return null (no button displayed)
-//   if (!user) {
-//     return null;
+//   export default function UserMenu() {
+//     const { user, logout, isLoading } = useApp();
+//     const [sidebarOpen, setSidebarOpen] = useState(false);
+//     const [isLoggingOut, setIsLoggingOut] = useState(false);
+//     const [darkMode, setDarkMode] = useState(false);
+//     const [searchQuery, setSearchQuery] = useState("");
+
+//     // Check if we're on the portal page to hide the Partner Portal link
+//     const isPortalPage = window.location.pathname === "/partner-portal";
+
+//     const toggleSidebar = () => {
+//       setSidebarOpen(!sidebarOpen);
+//     };
+
+//     const handleLogout = async () => {
+//       setIsLoggingOut(true);
+//       try {
+//         await logout();
+//         // Redirect will be handled by your app context
+//       } catch (error) {
+//         console.error("Logout failed:", error);
+//         setIsLoggingOut(false);
+//       }
+//     };
+
+//     const toggleDarkMode = () => {
+//       setDarkMode(!darkMode);
+//       // Add your dark mode implementation here
+//       document.documentElement.classList.toggle('dark');
+//     };
+
+//     // Format the user's full name
+//     const getUserFullName = () => {
+//       if (!user) return "Guest";
+
+//       if (user.firstName && user.lastName) {
+//         return `${user.firstName} ${user.lastName}`;
+//       } else if (user.firstName) {
+//         return user.firstName;
+//       } else if (user.lastName) {
+//         return user.lastName;
+//       } else {
+//         return user.username || "User";
+//       }
+//     };
+
+//     // Check if sidebar should be initially open based on screen size
+//     useEffect(() => {
+//       // On larger screens, open the sidebar by default
+//       const isLargeScreen = window.innerWidth >= 1280; // xl breakpoint
+//       setSidebarOpen(isLargeScreen);
+
+//       // Add listener for screen size changes
+//       const handleResize = () => {
+//         const isLarge = window.innerWidth >= 1280;
+//         if (isLarge && !sidebarOpen) {
+//           setSidebarOpen(true);
+//         }
+//       };
+
+//       window.addEventListener('resize', handleResize);
+//       return () => window.removeEventListener('resize', handleResize);
+//     }, []);
+
+//     // Format company name
+//     const getCompanyName = () => {
+//       return user?.companyName || "";
+//     };
+
+//     // Sidebar component
+//     const Sidebar = () => (
+//       <div
+//         className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-gray-900 shadow-lg border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out z-50 ${
+//           sidebarOpen ? "translate-x-0" : "translate-x-full"
+//         }`}
+//       >
+//         <div className="p-5 flex flex-col h-full">
+//           <div className="flex justify-between items-center mb-6">
+//             <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+//               Welcome, {getUserFullName()}
+//             </h2>
+//             <button
+//               onClick={toggleSidebar}
+//               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+//             >
+//               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+//                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+//               </svg>
+//             </button>
+//           </div>
+
+//           {user && (
+//             <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+//               <div className="flex items-center mb-3">
+//                 <Avatar
+//                   isBordered
+//                   color="primary"
+//                   name={getUserFullName()}
+//                   size="lg"
+//                   className="mr-3"
+//                 />
+//                 <div>
+//                   <p className="font-bold text-gray-800 dark:text-white">{getUserFullName()}</p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+//                   {getCompanyName() && (
+//                     <p className="text-sm text-gray-600 dark:text-gray-400">{getCompanyName()}</p>
+//                   )}
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+
+//           <div className="mb-6">
+//             <Input
+//               startContent={<Search size={18} />}
+//               placeholder="Search..."
+//               value={searchQuery}
+//               onChange={(e) => setSearchQuery(e.target.value)}
+//               className="w-full"
+//             />
+//           </div>
+
+//           <nav className="flex-grow">
+//             <ul>
+//               {!isPortalPage && (
+//                 <li className="mb-2">
+//                   <a
+//                     href="/partner-portal"
+//                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+//                   >
+//                     <Home size={20} className="mr-3" />
+//                     Partner Portal
+//                   </a>
+//                 </li>
+//               )}
+
+//               {navigationItems.map((item) => (
+//                 <li key={item.name} className="mb-2">
+//                   <a
+//                     href={item.href}
+//                     className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+//                   >
+//                     <span className="mr-3">{item.icon}</span>
+//                     {item.name}
+//                   </a>
+//                 </li>
+//               ))}
+//             </ul>
+//           </nav>
+
+//           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+//             <div className="flex items-center justify-between p-3 mb-4">
+//               <span className="text-gray-700 dark:text-gray-300 flex items-center">
+//                 <Moon size={20} className="mr-3" />
+//                 Dark Mode
+//               </span>
+//               <Switch
+//                 checked={darkMode}
+//                 onChange={toggleDarkMode}
+//               />
+//             </div>
+
+//             {user && (
+//               <div className="mt-auto pt-6 border-t border-white/20">
+//                 <button
+//                   onClick={handleLogout}
+//                   disabled={isLoading || isLoggingOut}
+//                   className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+//                 >
+//                   <LogOut size={20} className="mr-3" />
+//                   {isLoading || isLoggingOut ? 'Logging out...' : 'Log Out'}
+//                 </button>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     );
+
+//     // Sidebar Toggle Button that stays visible
+//     const SidebarToggle = () => (
+//       <Button
+//         isIconOnly
+//         variant="light"
+//         onPress={toggleSidebar}
+//         className="fixed top-4 right-4 z-40 bg-white dark:bg-gray-800 shadow-md rounded-full"
+//         aria-label="Toggle Navigation Sidebar"
+//       >
+//         {sidebarOpen ? (
+//           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+//             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+//           </svg>
+//         ) : (
+//           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+//             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+//           </svg>
+//         )}
+//       </Button>
+//     );
+
+//     // Render sidebar, logout overlay, and toggle
+//     return (
+//       <>
+//         {isLoggingOut && (
+//           <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center">
+//             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
+//               <svg className="animate-spin h-12 w-12 text-primary mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+//                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+//                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+//               </svg>
+//               <h3 className="text-xl font-bold text-gray-800 dark:text-white">Logging Out...</h3>
+//               <p className="text-gray-600 dark:text-gray-400">Please wait while we sign you out.</p>
+//             </div>
+//           </div>
+//         )}
+
+//         {/* The toggle button is always visible in a fixed position */}
+//         <SidebarToggle />
+
+//         {/* The sidebar */}
+//         <Sidebar />
+
+//         {/* Overlay to close sidebar when clicking outside */}
+//         {sidebarOpen && (
+//           <div
+//             className="fixed inset-0 bg-black bg-opacity-50 z-40"
+//             onClick={toggleSidebar}
+//           />
+//         )}
+//       </>
+//     );
 //   }
 
-//   // If user is logged in, show user menu
-//   return (
-//     <Dropdown placement="bottom-end">
-//       <DropdownTrigger>
-//         <Avatar
-//           isBordered
-//           as="button"
-//           className="transition-transform"
-//           color="primary"
-//           name={user.username}
-//           size="sm"
-//         />
-//       </DropdownTrigger>
-//       <DropdownMenu aria-label="Profile Actions" variant="flat">
-//         <DropdownItem
-//           key="profile"
-//           className="h-14 gap-2"
-//           textValue={`Signed in as ${user.email}`}
-//         >
-//           <p className="font-semibold">Signed in as</p>
-//           <p className="font-semibold">{user.email}</p>
-//         </DropdownItem>
-//         <DropdownItem
-//           key="settings"
-//           textValue="My Settings"
-//         >
-//           My Settings
-//         </DropdownItem>
-//         <DropdownItem
-//           key="help_and_feedback"
-//           textValue="Help & Feedback"
-//         >
-//           Help & Feedback
-//         </DropdownItem>
-//         <DropdownItem
-//           key="logout"
-//           color="danger"
-//           onPress={logout}
-//           isDisabled={isLoading}
-//           textValue={isLoading ? 'Logging out...' : 'Log Out'}
-//         >
-//           {isLoading ? 'Logging out...' : 'Log Out'}
-//         </DropdownItem>
-//       </DropdownMenu>
-//     </Dropdown>
-//   );
-// }
+
+// src/components/Navigation/userMenu.tsx
+import {
+  Avatar,
+  Button,
+  Input,
+  Switch
+} from "@heroui/react";
+import { useApp } from "../context/AppContext";
+import { useState, useEffect } from "react";
+import { Search, Moon, Settings, User, Home, FileText, Bell, MessageSquare, HelpCircle, LogOut } from "lucide-react";
+
+// Navigation items for the sidebar
+const navigationItems = [
+  { name: "Dashboard", href: "/dashboard", icon: <Home size={20} /> },
+  { name: "Profile", href: "/profile", icon: <User size={20} /> },
+  { name: "Documents", href: "/documents", icon: <FileText size={20} /> },
+  { name: "Notifications", href: "/notifications", icon: <Bell size={20} /> },
+  { name: "Messages", href: "/messages", icon: <MessageSquare size={20} /> },
+  { name: "Settings", href: "/settings", icon: <Settings size={20} /> },
+  { name: "Help & Support", href: "/help", icon: <HelpCircle size={20} /> }
+];
+
+export default function UserMenu() {
+  const { user, logout, isLoading } = useApp();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Check if we're on the portal page to hide the Partner Portal link
+  const isPortalPage = window.location.pathname === "/portal";
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleLogout = async () => {
+    console.log("Logout initiated");
+    setIsLoggingOut(true);
+    try {
+      await logout();
+      // Redirect will be handled by the logout function in AppContext
+    } catch (error) {
+      console.error("Logout failed:", error);
+      setIsLoggingOut(false);
+    }
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle('dark');
+  };
+
+  // Format the user's full name
+  const getUserFullName = () => {
+    if (!user) return "Guest";
+
+    if (user.firstName && user.lastName) {
+      return `${user.firstName} ${user.lastName}`;
+    } else if (user.firstName) {
+      return user.firstName;
+    } else if (user.lastName) {
+      return user.lastName;
+    } else {
+      return user.username || "User";
+    }
+  };
+
+  // Format company name
+  const getCompanyName = () => {
+    return user?.companyName || "";
+  };
+
+  // Sidebar component
+  const Sidebar = () => (
+    <div
+      className={`fixed top-0 right-0 h-full w-72 bg-white dark:bg-gray-900 shadow-lg border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out z-50 ${
+        sidebarOpen ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
+      <div className="p-5 flex flex-col h-full">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+            Welcome, {getUserFullName()}
+          </h2>
+          <button
+            onClick={toggleSidebar}
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {user && (
+          <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+            <div className="flex items-center mb-3">
+              <Avatar
+                isBordered
+                color="primary"
+                name={getUserFullName()}
+                size="lg"
+                className="mr-3"
+              />
+              <div>
+                <p className="font-bold text-gray-800 dark:text-white">{getUserFullName()}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{user.email}</p>
+                {getCompanyName() && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{getCompanyName()}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="mb-6">
+          <Input
+            startContent={<Search size={18} />}
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full"
+          />
+        </div>
+
+        <nav className="flex-grow">
+          <ul>
+            {!isPortalPage && (
+              <li className="mb-2">
+                <a
+                  href="/portal"
+                  className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                >
+                  <Home size={20} className="mr-3" />
+                  Partner Portal
+                </a>
+              </li>
+            )}
+
+            {navigationItems.map((item) => (
+              <li key={item.name} className="mb-2">
+                <a
+                  href={item.href}
+                  className="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                >
+                  <span className="mr-3">{item.icon}</span>
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-3 mb-4">
+            <span className="text-gray-700 dark:text-gray-300 flex items-center">
+              <Moon size={20} className="mr-3" />
+              Dark Mode
+            </span>
+            <Switch
+              checked={darkMode}
+              onChange={toggleDarkMode}
+            />
+          </div>
+
+          {/* Logout button - ensure it's visible and functional */}
+          {user && (
+            <button
+              onClick={handleLogout}
+              disabled={isLoading || isLoggingOut}
+              className="flex items-center w-full p-3 rounded-lg text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <LogOut size={20} className="mr-3" />
+              {isLoading || isLoggingOut ? 'Logging out...' : 'Log Out'}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Sidebar Toggle Button
+  const SidebarToggle = () => (
+    <Button
+      isIconOnly
+      variant="light"
+      onPress={toggleSidebar}
+      className="fixed top-4 right-4 z-40 bg-white dark:bg-gray-800 shadow-md rounded-full"
+      aria-label="Toggle Navigation Sidebar"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </Button>
+  );
+
+  // Render sidebar, logout overlay, and toggle
+  return (
+    <>
+      {isLoggingOut && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg text-center">
+            <svg className="animate-spin h-12 w-12 text-primary mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white">Logging Out...</h3>
+            <p className="text-gray-600 dark:text-gray-400">Please wait while we sign you out.</p>
+          </div>
+        </div>
+      )}
+
+      {/* The toggle button is always visible in a fixed position */}
+      <SidebarToggle />
+
+      {/* The sidebar */}
+      <Sidebar />
+
+      {/* Overlay to close sidebar when clicking outside */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={toggleSidebar}
+        />
+      )}
+    </>
+  );
+}

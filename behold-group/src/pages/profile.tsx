@@ -1,4 +1,3 @@
-// src/components/profile/ProfilePage.tsx
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardHeader, Button, Input, Textarea } from '@heroui/react';
 import { useApp } from '@/components/context/AppContext';

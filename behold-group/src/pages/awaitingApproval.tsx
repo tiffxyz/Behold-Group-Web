@@ -1,4 +1,3 @@
-// src/components/auth/AwaitingApprovalPage.tsx
 import React from 'react';
 import { Card, CardBody, CardHeader, Button } from '@heroui/react';
 import { Link } from 'react-router-dom';
